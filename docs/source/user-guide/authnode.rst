@@ -280,7 +280,7 @@ Create key for ChubaoFS cluster
   Edit ``client.json`` as following:
    ``clientKey``: use the value of ``key`` in ``key_client.json``
 
-  example ``client.json`` ：
+  example ``client.json`` :
 
   .. code-block:: json
 

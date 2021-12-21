@@ -36,7 +36,7 @@ fuse.json
    "owner", "string", "Owner name as authentication", "Yes"
    "masterAddr", "string", "Resource manager IP address", "Yes"
    "logDir", "string", "Path to store log files", "No"
-   "logLevel", "string", "Log level：debug, info, warn, error", "No"
+   "logLevel", "string", "Log level:debug, info, warn, error", "No"
    "profPort", "string", "Golang pprof port", "No"
    "exporterPort", "string", "Performance monitor port", "No"
    "consulAddr", "string", "Performance monitor server address", "No"

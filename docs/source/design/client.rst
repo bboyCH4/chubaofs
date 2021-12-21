@@ -1,4 +1,4 @@
-Client
+Client v3.0
 =========
 
 The client runs on each container executing application code and exposes a file system interface to applications and can access a mounted volume via a user-space file system interface such as FUSE.
