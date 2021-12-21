@@ -192,7 +192,7 @@ Volume Management
 .. code-block:: bash
 
     ./cli volume transfer [VOLUME NAME] [USER ID] [flags]   #Transfer volume to another user. (Change owner of volume)
-    Flags：
+    Flags:
         -f, --force                                         #Force transfer without current owner check
         -y, --yes                                           #Answer yes for all questions
 
@@ -203,7 +203,7 @@ User Management
 .. code-block:: bash
 
     ./cli user create [USER ID] [flags]         #Create a new user
-    Flags：
+    Flags:
         --access-key string                     #Specify user access key for object storage interface authentication
         --secret-key string                     #Specify user secret key for object storage interface authentication
         --password string                       #Specify user password
@@ -213,7 +213,7 @@ User Management
 .. code-block:: bash
 
     ./cli user delete [USER ID] [flags]         #Delete specified user
-    Flags：
+    Flags:
         -y, --yes                               #Answer yes for all questions
 
 .. code-block:: bash
@@ -232,7 +232,7 @@ User Management
 .. code-block:: bash
 
     ./cli user update [USER ID] [flags]         #Update information about specified user
-    Flags：
+    Flags:
         --access-key string                     #Update user access key
         --secret-key string                     #Update user secret key
         --user-type string                      #Update user type [normal | admin]
@@ -245,7 +245,7 @@ Compatibility Test
 .. code-block:: bash
 
     ./cli cptest meta [Snapshot Path] [Host] [Partition ID]         #Metadata compatibility test
-    Parameters：
+    Parameters:
             [Snapshot Path] string                     #The path which snapshot file located
             [Host] string                              #The metanode host which generated the snapshot file
             [Partition ID] string                      #The meta partition ID which to be compared
