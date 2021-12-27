@@ -17,6 +17,7 @@ Welcome to ChubaoFS(Chubao File System)
    design/metanode
    design/datanode
    design/objectnode.rst
+   design/blobstore
    design/client
 
 .. toctree::
