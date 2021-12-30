@@ -1,7 +1,7 @@
-Data Subsystem
+Replica Subsystem
 ===================
 
-The data subsystem is optimized for the storage of large and small files, which can be accessed in a sequential or random fashion.
+The replica-subsystem is optimized for the storage of large and small files, which can be accessed in a sequential or random fashion.
 
 .. image:: ../pic/data-subsystem.png
    :align: center

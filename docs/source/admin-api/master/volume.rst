@@ -18,6 +18,7 @@ Create
    
    "name", "string", "volume name", "Yes", "None"
    "capacity", "int", "the quota of vol, unit is GB", "Yes", "None"
+   "volType", "int", "volType: 0: replica-volume, 1:ec-volume", "Yes", "0"
    "owner", "string", "the owner of vol, and user ID of a user", "Yes", "None"
    "mpCount", "int", "the amount of initial meta partitions", "No", "3"
    "size", "int", "the size of data partitions, unit is GB", "No", "120"
