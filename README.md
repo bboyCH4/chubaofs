@@ -55,6 +55,7 @@ Some key features of ChubaoFS include:
 
 - S3-compatible object storage interface
 
+- Support erasure code (ec) storage
 
 We are committed to making ChubaoFS better and more mature. Please stay tuned. 
 
