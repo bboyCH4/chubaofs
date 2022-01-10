@@ -151,7 +151,8 @@ For detailed explanations of *datanode.json*, please refer to :doc:`user-guide/d
 
 Start BlobStore
 ^^^^^^^^^^^^^^^^^^^^^
-Please refer to :doc:`user-guide/master` 。
+
+Please refer to :doc:`user-guide/blobstore` 。
 
 Start ObjectNode
 ^^^^^^^^^^^^^^^^
