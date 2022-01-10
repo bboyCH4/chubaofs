@@ -23,6 +23,17 @@ Meta Node API
    admin-api/metanode/inode
    admin-api/metanode/dentry
 
+BlobStore API
+=============
+
+.. toctree::
+   :maxdepth: 2
+   :caption: BlobStore
+
+   admin-api/blobstore/blobnode
+   admin-api/blobstore/clustermgr
+   admin-api/blobstore/scheduler
+
 Command Line Interface
 ========================
 

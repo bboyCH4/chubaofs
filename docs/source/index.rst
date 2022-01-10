@@ -33,6 +33,7 @@ Welcome to ChubaoFS(Chubao File System)
    user-guide/fuse
    user-guide/yum
    user-guide/docker
+   user-guide/blobstore
 
 .. toctree::
    :maxdepth: 2
