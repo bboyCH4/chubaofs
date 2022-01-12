@@ -33,6 +33,7 @@ BlobStore API
    admin-api/blobstore/blobnode
    admin-api/blobstore/clustermgr
    admin-api/blobstore/scheduler
+   admin-api/blobstore/cli
 
 Command Line Interface
 ========================
