@@ -8,6 +8,18 @@ BlobStore is a highly reliable，highly available and  ultra-large scale  distri
    :align: center
    :alt: Blobstore Architecture
 
+.. csv-table::
+   :header: "Module",  "Description"
+
+   "Access",  "Access module, providing external data read, write and delete interfaces"
+   "ClusterManager",  "Metadata management module, responsible for cluster management and generate volume"
+   "Allocator",  "The proxy module of the ClusterManager, which provides the location for putting data"
+   "BlobNode",  "Data storage module"
+   "Scheduler",  "Asynchronous task dispatch center, responsible for the generation and schedule of volume patching, migration and recycling tasks"
+   "Worker",  "Volume patching, migration and recycling task execution module"
+   "MQProxy",  "Patch and delete operation message save module, which uses for asynchronous execute"
+   "Tinker",  "Patch and delete operation message execute module"
+
 System Features
 --------------------------
 
@@ -40,6 +52,14 @@ Put Data
 .. image:: pic/put-data.png
    :align: center
    :alt: Put Data Step
+
+Get Data
+---------------------
+
+.. image:: pic/get-data.png
+   :align: center
+   :alt: Put Data Step
+
 
 External Interface
 ---------------------
