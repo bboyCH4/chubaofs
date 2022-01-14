@@ -16,7 +16,7 @@ Compile and Configure
 
 Run ``make cli`` at main directory of our project, ``cli`` built in ./bin directory.
 
-``./cli -c cli.conf`` will start an unix-like command tool, the flag ``-c cli.conf`` is optional.
+``./bin/cli -c cli.conf`` will start an unix-like command tool, the flag ``-c cli.conf`` is optional.
 It mainly includes the configuration of some common variables, such as ``access`` layer service discovery address,
 ``clustermgr`` service address and so on.
 
@@ -55,7 +55,7 @@ Cli run as unix command, like:
     timestamp = 1640156245364981202 (seconds = 1640156245 nanosecs = 364981202)
             --> format: 2021-12-22T14:57:25.364981202+08:00 (now)
 
-``./cli`` Start an unix-like command tool program。
+``./bin/cli`` Start an unix-like command tool program。
 
 .. code-block:: txt
 

@@ -6,10 +6,12 @@ Build
 
 .. code-block:: bash
 
-   $ git clone xxx
-   $ make all
+   $ git clone https://github.com/chubaofs/blobstore.git
+   $ cd blobstore
+   $ source env.sh
+   $ ./build.sh
 
-If  `build` successful, the following executable files will be generated in the `bin` directory
+If  ``build`` successful, the following executable files will be generated in the ``bin`` directory
 
     1. clustermgr
     2. blobnode
@@ -24,10 +26,10 @@ If  `build` successful, the following executable files will be generated in the 
 Cluster Deployment
 ------------------
 
-Start each module should be in the following order.
+Since modules are related to a certain extent, they need to be deployed in the following order to avoid deployment failure due to service dependencies.
 
 Basic Environment
-::::::::::::::::
+::::::::::::::::::
 
 1. Platform Support
 
@@ -38,8 +40,6 @@ Basic Environment
     `MongoDB <https://docs.mongodb.com/manual/tutorial/>`_
 
     `Kafka <https://kafka.apache.org/documentation/#basic_ops>`_
-
-    `Redis <https://redis.io/topics/quickstart>`_
 
     `Consul <https://learn.hashicorp.com/tutorials/consul/get-started-install?in=consul/getting-started>`_ （each node）
 
@@ -56,7 +56,7 @@ At least three nodes are required to deploy clustermgr to ensure service availab
    nohup ./clustermgr -f clustermgr1.conf
    nohup ./clustermgr -f clustermgr2.conf
 
-2. Example：`clustermgr.conf`
+2. Example： ``clustermgr.conf``
 
 .. code-block:: json
 
@@ -77,8 +77,7 @@ At least three nodes are required to deploy clustermgr to ensure service availab
             "create_if_missing": true
         },
         "code_mode_policies": [
-            {"code_mode":11,"min_size":0,"max_size":1024,"size_ratio":0.2,"enable":true},
-            {"code_mode":2,"min_size":1025,"max_size":2048,"size_ratio":0.8,"enable":false}
+            {"code_mode":11,"min_size":0,"max_size":1024,"size_ratio":0.2,"enable":true}
         ],
         "volume_mgr_config":{
             "volume_db_path":"/tmp/volumedb0",
@@ -87,8 +86,7 @@ At least three nodes are required to deploy clustermgr to ensure service availab
             }
         },
         "cluster_config":{
-            "init_volume_num":100,
-            "volume_reserve_size":10485760
+            "init_volume_num":100
         },
         "raft_config": {
             "raft_db_path": "/tmp/raftdb0",
@@ -129,7 +127,7 @@ Blobnode
 
    nohup ./blobnode -f blobnode.conf
 
-3. Example of  `blobnode.conf`:
+3. Example of  ``blobnode.conf``:
 
 .. code-block:: json
 
@@ -176,13 +174,13 @@ Allocator
    mkdir /tmp/allocator
    nohup ./allocator -f allocator.conf
 
-3. Example of `allocator.conf`:
+3. Example of ``allocator.conf``:
 
 .. code-block:: json
 
    {
         "bind_addr": ":9100",
-        "service_addr": "http://127.0.0.1:9100", # replace with host ip
+        "host": "http://127.0.0.1:9100", # replace with host ip
         "cluster_id": 1,
         "idc": "z0",
         "clustermgr": {
@@ -217,17 +215,17 @@ MQproxy
    # To ensure availability, each computer room `idc` needs to deploy at least one mqproxy node
    nohup ./mqproxy -f mqproxy.conf 10.84.28.170:9095
 
-3. Example of `mqproxy.conf`:
+3. Example of ``mqproxy.conf``:
 
 .. code-block:: json
 
    {
         "bind_addr": ":9600", # service port
         "cluster_id":1, # cluster id
-        "cm_cfg":{ # hosts of clustermgr
-            "hosts": ["http://127.0.0.1:7000", "http://127.0.0.1:7010", "http://127.0.0.1:7020"]
+        "clustermgr":{ # hosts of clustermgr
+            "hosts": ["http://127.0.0.1:9998", "http://127.0.0.1:9999", "http://127.0.0.1:10000"]
         },
-        "mq_cfg":{
+        "mq":{
             "blob_delete_topic":"blob_delete",
             "shard_repair_topic":"shard_repair",
             "shard_repair_priority_topic":"shard_repair_prior",
@@ -236,7 +234,7 @@ MQproxy
             }
         },
         "service_register":{ # service info
-            "my_host":"http://127.0.0.1:9600",
+            "host":"http://127.0.0.1:9600",
             "idc":"z0"
         },
         "log":{ # running log
@@ -258,7 +256,7 @@ Access
    # The access module is a stateless single node deployment
    nohup ./access -f access.conf
 
-2. Example of `access.conf`:
+2. Example of ``access.conf``:
 
 .. code-block:: json
 
@@ -279,14 +277,12 @@ Access
             "idc": "z0",
             "cluster_config": { # clustermgr config
                 "region": "test-region", # region info
-                "region_magic": "region_magic", # magic number
-                "current_idc": "z0"
             }
         }
    }
 
 Scheduler
-::::::::::::::::
+::::::::::
 
 1. Based on mongodb，need to create database.db_name, task_archive_store_db_name database
 
@@ -296,34 +292,27 @@ Scheduler
 
    nohup ./scheduler -f scheduler.conf
 
-3. Example of `scheduler.conf`:
+3. Example of ``scheduler.conf``:
 
 .. code-block:: json
 
    {
       "bind_addr": ":9800", # port
       "cluster_id": 1, # cluster id
-      "cluster_mgr": { # hosts of clustermgr
-        "hosts": ["http://127.0.0.1:7000", "http://127.0.0.1:7010", "http://127.0.0.1:7020"]
+      "clustermgr": { # hosts of clustermgr
+        "hosts": ["http://127.0.0.1:9998", "http://127.0.0.1:9999", "http://127.0.0.1:10000"]
       },
       "database": {
         "mongo": {
           "uri": "mongodb://127.0.0.1:27017"
         },
         "db_name": "scheduler", # database name
-        "balance_tbl_name": "balance_tbl",
-        "disk_drop_tbl_name": "disk_drop_tbl",
-        "manual_migrate_tbl_name": "manual_migrate_tbl",
-        "repair_tbl_name": "repair_tbl",
-        "inspect_checkpoint_tbl_name": "inspect_checkpoint_tbl",
-        "svr_register_tbl_name": "svr_register_tbl"
       },
       "task_archive_store_db": {#
         "mongo": {
           "uri": "mongodb://127.0.0.1:27017"
         },
         "db_name": "task_archive_store",
-        "tbl_name": "tasks_tbl"
       },
       "log":{# running log
         "level":0,# 0:debug, 1:info, 2:warn, 3:error, 4:panic, 5:fatal
@@ -335,7 +324,7 @@ Scheduler
    }
 
 Worker
-::::::::::::::::
+:::::::
 
 1. Start Service
 
@@ -344,7 +333,7 @@ Worker
    # At least one worker node is deployed in each computer room `idc`
    nohup ./worker -f worker.conf
 
-3. Example of  `worker.conf`:
+3. Example of  ``worker.conf``:
 
 .. code-block:: json
 
@@ -352,13 +341,13 @@ Worker
       "bind_addr": ":9910", # port
       "cluster_id": 1,
       "service_register": { # service info
-        "my_host": "http://127.0.0.1:9910",
+        "host": "http://127.0.0.1:9910",
         "idc": "z0"
       },
-      "scheduler_cfg": {# scheduler config
+      "scheduler": {# scheduler config
         "host": "http://127.0.0.1:9800"
       },
-      "dropped_bid_record_cfg": { # the reason of dropped blob id
+      "dropped_bid_record": { # the reason of dropped blob id
         "dir": "./dropped"
       },
       "log":{
@@ -371,7 +360,7 @@ Worker
    }
 
 Tinker
-::::::::::::::::
+:::::::
 
 1. Based on kafka，create shard_repair_conf.fail_topic_cfg.topic and viblob_delete_conf.fail_topic_cfg.topic in advance.
 
@@ -384,7 +373,7 @@ Tinker
    # Deploy at least one node to configure all partitions in the topic of consumption kafka
    nohup ./tinker -f tinker.conf
 
-4. Example of  `tinker.conf`:
+4. Example of  ``tinker.conf``:
 
 .. code-block:: json
 
@@ -396,12 +385,10 @@ Tinker
             "uri": "mongodb://127.0.0.1:27017"
           },
           "db_name": "tinker",
-          "orphaned_shard_tbl_name":"orphaned_shard_tbl",
-          "kafka_offset_tbl_name":"kafka_offset_tbl"
       },
-      "shard_repair_conf":{
+      "shard_repair":{
            "broker_list":["127.0.0.1:9092"], # kafka host
-           "priority_topics_cfg":[
+           "priority_topics":[
                {
                     "priority":1, # Repair priority, the larger the value, the higher the priority
                     "topic":"shard_repair",
@@ -413,18 +400,18 @@ Tinker
                    "partitions":[0]
                 }
            ],
-           "fail_topic_cfg":{# Repair failed topic consumption configuration
+           "fail_topic":{# Repair failed topic consumption configuration
                 "topic":"shard_repair_failed",
                 "partitions":[0]
            }
       },
-      "blob_delete_conf":{
+      "blob_delete":{
             "broker_list":["127.0.0.1:9092"],
-            "normal_topic_cfg":{
+            "normal_topic":{
                 "topic":"blob_delete",
                 "partitions":[0]
             },
-            "fail_topic_cfg":{# Deletefailed topic consumption configuration
+            "fail_topic":{# Deletefailed topic consumption configuration
                 "topic":"fail_blob_delete",
                 "partitions":[0]
             },
@@ -433,14 +420,14 @@ Tinker
                 "dir": "./delete_log"
             }
       },
-      "cm_conf": { # hosts of clustermgr
-          "hosts": ["http://127.0.0.1:7000", "http://127.0.0.1:7010", "http://127.0.0.1:7020"]
+      "clustermgr": { # hosts of clustermgr
+          "hosts": ["http://127.0.0.1:9998", "http://127.0.0.1:9999", "http://127.0.0.1:10000"]
        },
-      "scheduler_conf": {# host of scheduler
+      "scheduler": {# host of scheduler
           "host": "http://127.0.0.1:9800"
       },
       "service_register":{ # service info
-          "my_host":"http://127.0.0.1:9700",
+          "host":"http://127.0.0.1:9700",
           "idc":"z0"
       },
       "log":{
@@ -452,13 +439,32 @@ Tinker
       }
    }
 
+Configuration Instructions
+:::::::::::::::::::::::::::
+
+1. clustermgr
+    1) code_mode_policies
+    Example:
+
+    .. code-block:: json
+
+        {
+           "code_mode" : 11 # The 11th code mode policy, the specific strategy scheme, see the appendix
+           "min_size" : 0 # Minimum upload blob size is 0
+           "max_size" : 1024 # Maximum upload blob size is 01024
+           "size_ratio" : 1 # Storage space ratio of different policies
+           "enable" : true # Whether to enable this policy, true represents enable, false represents disable
+        }
+
+
+
 Test
 ------
 
 Start Cli
-::::::::::::::::
+:::::::::::
 
-1. After starting cli on any machine in the cluster, set the access address by issuing the following command:
+1. After starting ``cli`` on any machine in the cluster, set the access address by issuing the following command:
 
 .. code-block:: bash
 
@@ -469,7 +475,7 @@ Start Cli
 
 
 Verification
-::::::::::::::::
+::::::::::::::
 
 .. code-block:: bash
 
@@ -502,3 +508,20 @@ Tips
    rm -f -r /tmp/normal*
 
 2. After all modules are successfully deployed, upload verification needs to be delayed for a period of time, waiting for the successful volume creation.
+
+Appendix
+---------
+
+1. Code Mode Policies
+
+.. csv-table::
+   :header: "Type", "ID", "Descriptions"
+
+   "EC15P12", "1", "{N: 15, M: 12, L: 0, AZCount: 3, PutQuorum: 24, GetQuorum: 0, MinShardSize: 2048}"
+   "EC6P6", "2", "{N: 06, M: 06, L: 0, AZCount: 3, PutQuorum: 11, GetQuorum: 0, MinShardSize: 2048}"
+   "EC16P20L2", "3", "{N: 16, M: 20, L: 2, AZCount: 2, PutQuorum: 34, GetQuorum: 0, MinShardSize: 2048}"
+   "EC6P10L2", "4", "{N: 06, M: 10, L: 2, AZCount: 2, PutQuorum: 14, GetQuorum: 0, MinShardSize: 2048}"
+   "EC12P4", "9", "{N: 12, M: 04, L: 0, AZCount: 1, PutQuorum: 15, GetQuorum: 0, MinShardSize: 2048}"
+   "EC3P3", "11", "{N: 6, M: 3, L: 3, AZCount: 3, PutQuorum: 9, GetQuorum: 0, MinShardSize: 2048}"
+
+*Where N: the number of data blocks, M: number of check blocks,, L: Number of local check blocks, AZCount: the count of AZ,  PutQuorum: (N + M) / AZCount + N <= PutQuorum <= M + N， MinShardSize: Minimum shard size, fill data into 0-N shards continuously, if the data size is less than MinShardSize*N, it will be aligned with zero bytes*, see `details <https://github.com/chubaofs/chubaofs/blobstore/common/codemode/codemode.go>`_ .
