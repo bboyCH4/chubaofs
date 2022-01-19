@@ -34,7 +34,7 @@ Delete
    curl -v "http://10.196.59.198:17010/vol/delete?name=test&authKey=md5(owner)"
 
 
-Mark the vol status to MarkDelete first, then delete data partition and meta partition asynchronous, finally delete meta data from persist store.
+Mark the vol status to MarkDelete first, then delete data partition and meta partition asynchronous, finally delete meta data from persist store, ec-volume can be deleted only if used size is zero.
 
 While deleting the volume, the policy information related to the volume will be deleted from all user information.
 
@@ -90,6 +90,7 @@ Show the status information of volume.
    :header: "Parameter", "Type", "Description"
    
    "name", "string", "volume name"
+   "version", "", "volume version, 0: replica-volume, 1: ec-volume, default 0"
 
 response
 

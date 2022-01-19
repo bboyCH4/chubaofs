@@ -8,7 +8,7 @@ High Level Architecture
 
 .. image:: pic/cfs-arch-ec.png
    :align: center
-   :scale: 75 %
+   :scale: 100 %
    :alt: Architecture
 
 ChubaoFS  consists of a *metadata subsystem*, a *data subsystem*, and a *resource manager*,  and can be accessed by different *clients* (as a set of application processes)  hosted on the containers through different file system instances called *volumes*.

@@ -143,10 +143,11 @@ Config Management
 
 .. code-block:: bash
 
-    ./cli config set [flags]    #Set configurations of cli
+    ./cfs-cli config set [flags] #set config info
     Flags:
-        --addr      string      #Specify master address [{HOST}:{PORT}]
-        --timeout   uint16      #Specify timeout for requests [Unit: s] (default 60)
+        --addr string      Specify master address [{HOST}:{PORT}]
+    -h, --help             help for set
+        --timeout uint16   Specify timeout for requests [Unit: s]
 
 Completion Management
 >>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -162,11 +163,16 @@ Volume Management
 
     ./cli volume create [VOLUME NAME] [USER ID] [flags]     #Create a new volume
     Flags:
-        --capacity uint                                     #Specify volume capacity [Unit: GB] (default 10)
-        --dp-size  uint                                     #Specify size of data partition size [Unit: GB] (default 120)
-        --follower-read                                     #Enable read form replica follower (default true)
-        --mp-count int                                      #Specify init meta partition count (default 3)
-        -y, --yes                                           #Answer yes for all questions
+        --capacity uint     Specify volume capacity [Unit: GB] (default 10)
+        --crossZone         Disable cross zone
+        --dp-size uint      Specify size of data partition size [Unit: GB] (default 120)
+        --follower-read     Enable read form replica follower
+    -h, --help              help for create
+        --mp-count int      Specify init meta partition count (default 3)
+        --replicas int      Specify data partition replicas number (default 3)
+        --vol-type int      Specify volume type (default 0)
+    -y, --yes               Answer yes for all questions
+        --zonename string   Specify volume zone name
 
 .. code-block:: bash
 
@@ -238,26 +244,3 @@ User Management
         --user-type string                      #Update user type [normal | admin]
         -y, --yes                               #Answer yes for all questions
 
-
-Compatibility Test
->>>>>>>>>>>>>>>>>>>>>>>>
-
-.. code-block:: bash
-
-    ./cli cptest meta [Snapshot Path] [Host] [Partition ID]         #Metadata compatibility test
-    Parameters:
-            [Snapshot Path] string                     #The path which snapshot file located
-            [Host] string                              #The metanode host which generated the snapshot file
-            [Partition ID] string                      #The meta partition ID which to be compared
-
-Example:
-
-    1. Use the old version to prepare metadata, stop writing metadata,after waiting for the latest snapshot to be generated(about 5 minutes), copy the snapshot file to the local machine
-    2. Execute the metadata comparison command on local machine
-
-    .. code-block:: bash
-
-        [Verify result]
-        All dentry are consistent
-        All inodes are consistent
-        All meta has checked

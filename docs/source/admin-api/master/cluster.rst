@@ -40,7 +40,7 @@ Freeze
 
    curl -v "http://10.196.59.198:17010/cluster/freeze?enable=true"
 
-If cluster is freezed, the vol never allocates dataPartitions automatically.
+If cluster is freezed, the vol never allocates dataPartitions.
 
 .. csv-table:: Parameters
    :header: "Parameter", "Type", "Description"
