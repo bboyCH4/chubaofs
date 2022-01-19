@@ -77,7 +77,7 @@ At least three nodes are required to deploy clustermgr to ensure service availab
             "create_if_missing": true
         },
         "code_mode_policies": [
-            {"code_mode":11,"min_size":0,"max_size":1024,"size_ratio":0.2,"enable":true}
+            {"mode_name":"EC3P3","min_size":0,"max_size":1024,"size_ratio":0.2,"enable":true}
         ],
         "volume_mgr_config":{
             "volume_db_path":"/tmp/volumedb0",
@@ -133,7 +133,7 @@ Blobnode
 
    {
         "bind_addr": ":8899",
-        "cluster": 1,
+        "cluster_id": 1,
         "idc": "z0",
         "rack": "testrack",
         "host": "http://127.0.0.1:8899",
@@ -152,7 +152,6 @@ Blobnode
             "disk_reserved_space_B": 1,   # for debug
             "must_mount_point": true      # for debug
         },
-        "flock_filename": "./run/blobnode.0.flock",
         "log":{ # running log
             "level":0,# 0:debug, 1:info, 2:warn, 3:error, 4:panic, 5:fatal
             "filename": "./run/blobnode.log"
@@ -449,7 +448,7 @@ Configuration Instructions
     .. code-block:: json
 
         {
-           "code_mode" : 11 # The 11th code mode policy, the specific strategy scheme, see the appendix
+           "code_mode" : "EC3P3" # The specific strategy scheme, see the appendix
            "min_size" : 0 # Minimum upload blob size is 0
            "max_size" : 1024 # Maximum upload blob size is 01024
            "size_ratio" : 1 # Storage space ratio of different policies
@@ -515,13 +514,13 @@ Appendix
 1. Code Mode Policies
 
 .. csv-table::
-   :header: "Type", "ID", "Descriptions"
+   :header: "Type", "Descriptions"
 
-   "EC15P12", "1", "{N: 15, M: 12, L: 0, AZCount: 3, PutQuorum: 24, GetQuorum: 0, MinShardSize: 2048}"
-   "EC6P6", "2", "{N: 06, M: 06, L: 0, AZCount: 3, PutQuorum: 11, GetQuorum: 0, MinShardSize: 2048}"
-   "EC16P20L2", "3", "{N: 16, M: 20, L: 2, AZCount: 2, PutQuorum: 34, GetQuorum: 0, MinShardSize: 2048}"
-   "EC6P10L2", "4", "{N: 06, M: 10, L: 2, AZCount: 2, PutQuorum: 14, GetQuorum: 0, MinShardSize: 2048}"
-   "EC12P4", "9", "{N: 12, M: 04, L: 0, AZCount: 1, PutQuorum: 15, GetQuorum: 0, MinShardSize: 2048}"
-   "EC3P3", "11", "{N: 6, M: 3, L: 3, AZCount: 3, PutQuorum: 9, GetQuorum: 0, MinShardSize: 2048}"
+   "EC15P12", "{N: 15, M: 12, L: 0, AZCount: 3, PutQuorum: 24, GetQuorum: 0, MinShardSize: 2048}"
+   "EC6P6", "{N: 06, M: 06, L: 0, AZCount: 3, PutQuorum: 11, GetQuorum: 0, MinShardSize: 2048}"
+   "EC16P20L2", "{N: 16, M: 20, L: 2, AZCount: 2, PutQuorum: 34, GetQuorum: 0, MinShardSize: 2048}"
+   "EC6P10L2", "{N: 06, M: 10, L: 2, AZCount: 2, PutQuorum: 14, GetQuorum: 0, MinShardSize: 2048}"
+   "EC12P4", "{N: 12, M: 04, L: 0, AZCount: 1, PutQuorum: 15, GetQuorum: 0, MinShardSize: 2048}"
+   "EC3P3", "{N: 6, M: 3, L: 3, AZCount: 3, PutQuorum: 9, GetQuorum: 0, MinShardSize: 2048}"
 
 *Where N: the number of data blocks, M: number of check blocks,, L: Number of local check blocks, AZCount: the count of AZ,  PutQuorum: (N + M) / AZCount + N <= PutQuorum <= M + N， MinShardSize: Minimum shard size, fill data into 0-N shards continuously, if the data size is less than MinShardSize*N, it will be aligned with zero bytes*, see `details <https://github.com/chubaofs/chubaofs/blobstore/common/codemode/codemode.go>`_ .
