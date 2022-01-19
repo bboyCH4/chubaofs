@@ -19,7 +19,7 @@ The metadata subsystem  stores the file metadata, and consists of a set of *meta
 The data subsystem includes the replica subsystem and the blobstore(ec)subsystem. The two subsystems can exist at the same time, or both can exist separately.
 
 + Replica subsystem stores the file contents, and consists of a set of *data nodes*.  Each data node consists of a set of  *data partitions*.
-+ BlobStore(ec) subsystem stores the data by using erasure coding technology
++ BlobStore(ec) subsystem consists of many *blobNodes*, each node manage one group *data chunks*, several node's *data chunks* make up an erasure code stripe
 
 The volume is a logical concept in ChubaoFS and consists of  one or multiple meta partitions and one or multiple data partitions. Each partition can only be assigned to a single volume.
 From a client's perspective, the volume can be viewed as a file system instance that  contains data accessible by the containers.
@@ -59,7 +59,7 @@ In a POSIX-compliant distributed file system,  the behavior of serving multiple 
 Erasure code storage
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-BlobStore subsystem supports erasure coding storage method, which has the characteristics of high reliability, high availability, and support for ultra-large scale (the ec-volume does not support random-write and overwriting operation temporarily)
+BlobStore subsystem supports erasure coding storage method, which has the characteristics of high reliability, high availability, lower cost, and support for ultra-large scale (the ec-volume does not support random-write and overwriting operation temporarily)
 
 
 
