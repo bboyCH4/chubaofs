@@ -1,7 +1,7 @@
 Erasure Code Subsystem
 =======================
 
-BlobStore is a highly reliable，highly available and  ultra-large scale(EB)  distributed storage system. The system adopts Reed-Solomon code, which provides higher data durability with less storage cost than use three copies  backup technology, and supports multiple erasure code modes multiple availability zones, and optimizes for small file to meet the storage needs of different scenarios.
+BlobStore is a highly reliable,highly available,lower cost and  ultra-large scale(EB)  distributed storage system. The system adopts Reed-Solomon code, which provides higher data durability with less storage cost than use three copies  backup technology, and supports multiple erasure code modes multiple availability zones, and optimizes for small file to meet the storage needs of different scenarios.
 
 
 .. image:: pic/blobstore.png
@@ -32,7 +32,7 @@ BlobStore can be composed of multiple clusters, a single cluster can store more 
 BlobStore chooses erasure code technology as the data redundancy backup strategy, using Reed-Solomon encoding feature to divide the original data into N data blocks and M check blocks to store to the cluster, which can support the maximum M data corruption premise to ensure data reliability. BlobStore supports partition fault tolerance and disaster recovery, supports automatically  inspect and repair data, which can provide  99.9999999999% data durability guarantee.
 
 
-- Low Cost
+- Lower Cost
 
 With the same data reliability, the storage redundancy of the erasure code technology is much lower than that of the three-copy technology. The erasure code subsystem is more cost effective in meeting high data reliability and has significant benefits in large scale storage scenarios.
 
