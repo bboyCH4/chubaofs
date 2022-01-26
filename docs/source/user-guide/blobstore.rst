@@ -6,7 +6,7 @@ Build
 
 .. code-block:: bash
 
-   $ git clone https://github.com/chubaofs/blobstore.git
+   $ git clone https://github.com/cubefs/blobstore.git
    $ cd blobstore
    $ source env.sh
    $ ./build.sh
@@ -523,4 +523,4 @@ Appendix
    "EC12P4", "{N: 12, M: 04, L: 0, AZCount: 1, PutQuorum: 15, GetQuorum: 0, MinShardSize: 2048}"
    "EC3P3", "{N: 6, M: 3, L: 3, AZCount: 3, PutQuorum: 9, GetQuorum: 0, MinShardSize: 2048}"
 
-*Where N: the number of data blocks, M: number of check blocks,, L: Number of local check blocks, AZCount: the count of AZ,  PutQuorum: (N + M) / AZCount + N <= PutQuorum <= M + N， MinShardSize: Minimum shard size, fill data into 0-N shards continuously, if the data size is less than MinShardSize*N, it will be aligned with zero bytes*, see `details <https://github.com/chubaofs/chubaofs/blobstore/common/codemode/codemode.go>`_ .
+*Where N: the number of data blocks, M: number of check blocks,, L: Number of local check blocks, AZCount: the count of AZ,  PutQuorum: (N + M) / AZCount + N <= PutQuorum <= M + N， MinShardSize: Minimum shard size, fill data into 0-N shards continuously, if the data size is less than MinShardSize*N, it will be aligned with zero bytes*, see `details <https://github.com/cubefs/cubefs/blobstore/common/codemode/codemode.go>`_ .
