@@ -41,7 +41,7 @@ Sample *master.json* is shown as follows,
      "storeDir":"/cfs/master/data/store",
      "consulAddr": "http://consul.prometheus-cfs.local",
      "exporterPort": 9500,
-     "clusterName":"chubaofs01",
+     "clusterName":"cubefs01",
      "metaNodeReservedMem": "1073741824"
    }
 

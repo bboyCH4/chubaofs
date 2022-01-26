@@ -1,7 +1,7 @@
 Run Cluster by Yum Tools
 =========================
 
-Yum tools to run a ChubaoFS cluster for CentOS 7+ is provided. The list of RPM packages dependencies can be installed with:
+Yum tools to run a CubeFS cluster for CentOS 7+ is provided. The list of RPM packages dependencies can be installed with:
 
 .. code-block:: bash
 
@@ -26,7 +26,7 @@ Yum tools to run a ChubaoFS cluster for CentOS 7+ is provided. The list of RPM p
         ├── metanode.json.j2
         └── objectnode.json.j2
 
-Set parameters of the ChubaoFS cluster in **iplist**.
+Set parameters of the CubeFS cluster in **iplist**.
 
 - **[master]**, **[datanode]** , **[metanode]** , **[console]**, **[monitor]** , **[client]** modules includes member IP addresses of each role.
 
@@ -151,7 +151,7 @@ Set parameters of the ChubaoFS cluster in **iplist**.
 
 For more configurations, please refer to :doc:`master`; :doc:`metanode`; :doc:`datanode`; :doc:`client`; :doc:`monitor`; :doc:`console`.
 
-Start the resources of ChubaoFS cluster with script **install.sh** . (make sure the Master is started first)
+Start the resources of CubeFS cluster with script **install.sh** . (make sure the Master is started first)
 
 .. code-block:: bash
 

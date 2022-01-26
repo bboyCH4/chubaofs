@@ -8,7 +8,7 @@ As the CLI continues to improve, it will eventually achieve 100% coverage of the
 Compile and Configure
 -----------------------
 
-After downloading the ChubaoFS source code, execute the command ``go build`` in the directory ``chubaofs/cli`` to generate ``cli``.
+After downloading the CubeFS source code, execute the command ``go build`` in the directory ``cubefs/cli`` to generate ``cli``.
 
 At the same time, a configuration file named ``.cfs-cli.json`` will be generated in the directory ``root``, and the master address can be changed to the current cluster master address. You can also get or set the master address by executing the command ``./cli config info`` or ``./cli config set``.
 
@@ -20,7 +20,7 @@ The logs of ``cfs-cli`` tool are in the directory ``/tmp/cfs/cli``, which offer 
 Usage
 ---------
 
-In the directory ``chubaofs/cli``, execute the command ``./cli --help`` or ``./cli -h`` to get the CLI help document.
+In the directory ``cubefs/cli``, execute the command ``./cli --help`` or ``./cli -h`` to get the CLI help document.
 
 CLI is mainly divided into seven types of management commands.
 

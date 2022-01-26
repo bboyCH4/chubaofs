@@ -17,7 +17,7 @@ Features
 Configurations
 --------------
 
-ChubaoFS use **JSON** as configuration file format.
+CubeFS use **JSON** as configuration file format.
 
 .. csv-table:: Properties
    :header: "Key", "Type", "Description", "Mandatory"
@@ -69,7 +69,7 @@ ChubaoFS use **JSON** as configuration file format.
     "storeDir":"/cfs/master/data/store",
     "exporterPort": 9500,
     "consulAddr": "http://consul.prometheus-cfs.local",
-    "clusterName":"chubaofs01",
+    "clusterName":"cubefs01",
     "metaNodeReservedMem": "1073741824"
    }
 
