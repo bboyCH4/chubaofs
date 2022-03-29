@@ -43,6 +43,12 @@ Basic Environment
 
     `Consul <https://learn.hashicorp.com/tutorials/consul/get-started-install?in=consul/getting-started>`_ （each node）
 
+3. build consul (single node)
+
+.. code-block:: bash
+
+    ./consul agent -dev -client 0.0.0.0
+
 Clustermgr
 ::::::::::::::::
 
