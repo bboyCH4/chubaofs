@@ -36,7 +36,6 @@ CLI is mainly divided into seven types of management commands.
    "cli completion", "Generating bash completions "
    "cli volume, vol", "Manage cluster volumes"
    "cli user", "Manage cluster users"
-   "cli compatibility", "Compatibility test"
 
 Cluster Management
 >>>>>>>>>>>>>>>>>>>>>>>
@@ -56,6 +55,10 @@ Cluster Management
 .. code-block:: bash
 
     ./cli cluster threshold [float]     #Set the threshold of memory on each meta node.
+
+.. code-block:: bash
+
+    ./cli cluster cluster set [flags]    #Set the parameters for clustedr.
 
 MetaNode Management
 >>>>>>>>>>>>>>>>>>>>>
@@ -167,7 +170,13 @@ Volume Management
         --crossZone         Disable cross zone
         --dp-size uint      Specify size of data partition size [Unit: GB] (default 120)
         --follower-read     Enable read form replica follower
-    -h, --help              help for create
+        --cache-action          Specify low volume cacheAction (default 0)
+        --cache-high-water      Specify cache high-water level(default 80)
+        --cache-low-water       Specify cache low-water level (default 60)
+        --cache-lru-interval    Specify interval expiration time[Unit: min] (default 5)
+        --cache-rule-key        Anything that match this field will be written to the cache
+        --cache-threshold       Specify cache threshold[Unit: byte] (default 10485760)
+        --cache-ttl int         Specify cache expiration time[Unit: day] (default 30)    -h, --help              help for create
         --mp-count int      Specify init meta partition count (default 3)
         --replicas int      Specify data partition replicas number (default 3)
         --vol-type int      Specify volume type (default 0)
@@ -202,6 +211,24 @@ Volume Management
         -f, --force                                         #Force transfer without current owner check
         -y, --yes                                           #Answer yes for all questions
 
+.. code-block:: bash
+
+    ./cli volume update                                     #Update cluster volumes parameters
+    Flags:
+        --cache-action string      Specify low volume cacheAction (default 0)
+        --cache-capacity string    Specify low volume capacity[Unit: GB]
+        --cache-high-water int      (default 80)
+        --cache-low-water int       (default 60)
+        --cache-lru-interval int   Specify interval expiration time[Unit: min] (default 5)
+        --cache-rule string        Specify cache rule
+        --cache-threshold int      Specify cache threshold[Unit: byte] (default 10M)
+        --cache-ttl int            Specify cache expiration time[Unit: day] (default 30)
+        --capacity uint            Specify volume datanode capacity [Unit: GB]
+        --description string       The description of volume
+        --ebs-blk-size int         Specify ebsBlk Size[Unit: byte]
+        --follower-read string     Enable read form replica follower (default false)
+        -y, --yes               Answer yes for all questions
+        --zonename string   Specify volume zone name
 
 User Management
 >>>>>>>>>>>>>>>>>

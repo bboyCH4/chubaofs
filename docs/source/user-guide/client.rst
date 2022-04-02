@@ -97,7 +97,7 @@ Execute the following command to preload the file or directory:
 
 .. code-block:: bash
 
-   nohup ./cfs- -c fuse.json &
+   ./cfs-preload -c preload.json
 
 .. code-block:: json
 
@@ -128,7 +128,7 @@ Execute the following command to preload the file or directory:
     "logDir", "string", "Path to store log files", "Yes"
     "logLevel", "string", "Log level:debug, info, warn, error", "Yes"
     "ttl", "string", "TTL for preload cache", "Yes"
-    "action", "string", "Preload behavior:clear clears preload cache;preload preload data to cache", "Yes"
+    "action", "string", "Preload behavior:clear-clears preload cache;preload-preload data to cache", "Yes"
     "replicaNum", "string", "Copy numbers for preload cache(1-16)", "No"
     "zones", "string", "Zone name for preload cache", "No"
     "traverseDirConcurrency", "string", "Concurrency for traversing directory task", "No"
