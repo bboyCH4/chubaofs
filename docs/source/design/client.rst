@@ -24,3 +24,19 @@ Client Preload
 -----------------------
 
 In order to improve the reading efficiency of the erasure volume, the client can cache the data of the erasure code subsystem in the replica subsystem through the preload function. The cached content in the replica subsystem will be automatically deleted after the warm-up TTL expires.
+
+
+Block Cache
+-----------------------
+
+BlockCache is a local data cache service independent of the client. It provides Put/Get/Delete interfaces for the client, and performs cache read, write, and elimination operations based on data blocks. Its overall structure is shown in the figure below.
+
+
+.. image:: pic/block-cache.png
+   :align: center
+   :alt: Blobstore Architecture
+
+
+The BlockCache caching service provides caching service for all clients that open the first-level cache configuration on the machine. The local data block corresponds to the remote storage data block one-to-one, and is accessed by block index (BlockKey). The data block index is generated in the following way: ``VolumeName_Inode_hex(FileOffset)``. The block index maps the memory data block structure to the local cache file after two modulo calculations, like this ``LocalPath / hash(BlockKey)%512 / hash(BlockKey)%256 / BlockKey``. BlockCacheStoreService maintains all data block indexes and periodically eliminates them according to LRU.
+
+When the BlockCache service restarts, it automatically scans the cached data files on the disk and rebuilds the data block index in memory. The addition and removal of cache directories does not require data migration, lost cache data will be re-cached, and residual cache data will be eliminated by LRU.
