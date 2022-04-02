@@ -62,6 +62,7 @@ fuse.json
    "enablePosixACL", "bool", "Enable posix ACL support. False by default.", "No"
    "enableSummary", "bool", "Enable content summary. False by default.", "No"
    "enableUnixPermission", "bool", "Enable unix permission check support. False by default.", "No"
+   "enableBcache", "bool", "Enable block cache, False by default", "No"
 
 Mount
 -----
@@ -135,4 +136,32 @@ Execute the following command to preload the file or directory:
     "preloadFileConcurrency", "string", "Concurrency for preloading file task", "No"
     "preloadFileSizeLimit", "string", "The threshold for preloading files，Only files with a file size lower than this threshold can be preloaded", "No"
     "readBlockConcurrency", "string", "Concurrency for reading blocks from ec volume task", "No"
+    "prof", "string", "Golang pprof port", "No"
+
+
+Block Cache
+--------
+
+Execute the following command to launch the block cache service:
+
+.. code-block:: bash
+
+   ./cfs-bcache -c cache.json
+
+.. code-block:: json
+
+   {
+      "role":"blockcache",
+      "cacheDir":"/cache_path_1:cache_size;/cache_path_2:cache_size",
+      "logDir":"/your/block/cache/logdir",
+      "logLevel":"warn"
+   }
+
+.. csv-table:: Supported Configurations
+   :header: "Name", "Type", "Description", "Mandatory"
+
+    "role", "string", "Role of process and must be set to *blockcache*", "Yes"
+    "cacheDir", "string", "Path to store data block files", "Yes"
+    "logDir", "string", "Path to store log files", "是"
+    "logLevel", "string", "Log level:debug, info, warn, error", "Yes"
     "prof", "string", "Golang pprof port", "No"
