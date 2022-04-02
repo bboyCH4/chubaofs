@@ -89,3 +89,50 @@ Custom can modify ``DataPartitionSelector`` through master API, and do not need 
     curl 'http://masterIP:Port/vol/update?name=volName&authKey=VolKey&dpSelectorName=a&dpSelectorParm=b'
 
 ``dpSelectorName`` and ``dpSelectorParm`` must be modified at the same time.
+
+Preload
+--------
+
+Execute the following command to preload the file or directory:
+
+.. code-block:: bash
+
+   nohup ./cfs- -c fuse.json &
+
+.. code-block:: json
+
+   {
+      "target":"/", 
+      "volumeName": "cold4",
+      "masterAddr": "10.177.69.105:17010,10.177.69.106:17010,10.177.117.108:17010",
+      "logDir": "/mnt/hgfs/share/cfs-client-test",
+      "logLevel": "debug",
+      "ttl": "100",
+      "replicaNum": "1",
+      "zones": "",
+      "action":"clear",
+      "traverseDirConcurrency":"4",
+      "preloadFileConcurrency":"10",
+      "preloadFileSizeLimit":"10737418240",
+      "readBlockConcurrency":"10"
+      "prof":"27520"
+   }
+
+
+.. csv-table:: Supported Configurations
+   :header: "Name", "Type", "Description", "Mandatory"
+
+    "target", "string", "The file or directory to preload", "Yes"
+    "volName", "string", "Volume name", "Yes"
+    "masterAddr", "string", "Resource manager IP address", "Yes"
+    "logDir", "string", "Path to store log files", "Yes"
+    "logLevel", "string", "Log level:debug, info, warn, error", "Yes"
+    "ttl", "string", "TTL for preload cache", "Yes"
+    "action", "string", "Preload behavior:clear clears preload cache;preload preload data to cache", "Yes"
+    "replicaNum", "string", "Copy numbers for preload cache(1-16)", "No"
+    "zones", "string", "Zone name for preload cache", "No"
+    "traverseDirConcurrency", "string", "Concurrency for traversing directory task", "No"
+    "preloadFileConcurrency", "string", "Concurrency for preloading file task", "No"
+    "preloadFileSizeLimit", "string", "The threshold for preloading files，Only files with a file size lower than this threshold can be preloaded", "No"
+    "readBlockConcurrency", "string", "Concurrency for reading blocks from ec volume task", "No"
+    "prof", "string", "Golang pprof port", "No"
