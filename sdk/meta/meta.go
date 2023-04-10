@@ -52,7 +52,7 @@ const (
 )
 
 const (
-	MaxMountRetryLimit = 5
+	MaxMountRetryLimit = 6
 	MountRetryInterval = time.Second * 5
 
 	/*
@@ -136,7 +136,7 @@ type MetaWrapper struct {
 	DirChildrenNumLimit uint32
 }
 
-//the ticket from authnode
+// the ticket from authnode
 type Ticket struct {
 	ID         string `json:"client_id"`
 	SessionKey string `json:"session_key"`
@@ -180,9 +180,9 @@ func NewMetaWrapper(config *MetaConfig) (*MetaWrapper, error) {
 	mw.EnableSummary = config.EnableSummary
 	mw.DirChildrenNumLimit = proto.DefaultDirChildrenNumLimit
 
-	limit := MaxMountRetryLimit
+	limit := 0
 
-	for limit > 0 {
+	for limit < MaxMountRetryLimit {
 		err = mw.initMetaWrapper()
 		// When initializing the volume, if the master explicitly responds that the specified
 		// volume does not exist, it will not retry.
@@ -194,8 +194,8 @@ func NewMetaWrapper(config *MetaConfig) (*MetaWrapper, error) {
 			return nil, err
 		}
 		if err != nil {
-			limit--
-			time.Sleep(MountRetryInterval)
+			limit++
+			time.Sleep(MountRetryInterval * time.Duration(limit))
 			continue
 		}
 		break

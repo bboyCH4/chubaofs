@@ -68,7 +68,7 @@ const (
 
 	UpdateConfInterval = 2 * time.Minute
 
-	MasterRetrys = 20
+	MasterRetrys = 5
 )
 
 const (
@@ -292,8 +292,8 @@ func main() {
 	//load  conf from master
 	for retry := 0; retry < MasterRetrys; retry++ {
 		err = loadConfFromMaster(opt)
-		if err != nil && err.Error() == "no valid master" {
-			time.Sleep(5 * time.Second)
+		if err != nil {
+			time.Sleep(5 * time.Second * time.Duration(retry+1))
 		} else {
 			break
 		}
