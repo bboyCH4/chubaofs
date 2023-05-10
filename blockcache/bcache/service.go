@@ -123,9 +123,9 @@ func (s *bcacheStore) startServer() (err error) {
 	os.MkdirAll(filepath.Dir(UnixSocketPath), FilePerm)
 
 	if _, err := os.Stat(UnixSocketPath); err == nil {
-		existErr := fmt.Sprintf("Another process is running or %s already exist,force delete it.", UnixSocketPath)
+		existErr := fmt.Sprintf("Another process is running or %s already exist,stop it.", UnixSocketPath)
 		log.LogErrorf(existErr)
-		os.Remove(UnixSocketPath)
+		//os.Remove(UnixSocketPath)
 	}
 
 	s.stopC = make(chan struct{})
